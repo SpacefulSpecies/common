@@ -1,0 +1,16 @@
+{
+    "name": "species/common",
+    "description": "Common generic boilerplate code.",
+    "type": "library",
+    "license": "MIT",
+
+    "autoload": {
+        "psr-4": {
+            "Species\\Common\\": "src/"
+        }
+    },
+
+    "require": {
+        "php": "^7.2"
+    }
+}

@@ -9,14 +9,16 @@ use Species\Common\Value\String\StringValue;
 /**
  * Abstract argon2i password value object.
  */
-abstract class Argon2IPasswordValue extends StringValue
+abstract class Argon2IPasswordValue extends StringValue implements PasswordValueObject
 {
 
     /**
+     * Override this method to guard the plain password rules.
+     *
      * @param string $plainPassword
      * @throws InvalidPassword
      */
-    protected static function guardPassword(string $plainPassword): void
+    protected static function guardPlainPassword(string $plainPassword): void
     {
         if (strlen($plainPassword) < 6) {
             throw new InvalidPassword();
@@ -25,26 +27,15 @@ abstract class Argon2IPasswordValue extends StringValue
 
 
 
-    /**
-     * @param string $plainPassword
-     * @param int    $memoryCost = PASSWORD_ARGON2_DEFAULT_MEMORY_COST
-     * @param int    $timeCost   = PASSWORD_ARGON2_DEFAULT_TIME_COST
-     * @param int    $threads    = PASSWORD_ARGON2_DEFAULT_THREADS
-     * @return static
-     */
-    final public static function generate(
-        string $plainPassword,
-        int $memoryCost = PASSWORD_ARGON2_DEFAULT_MEMORY_COST,
-        int $timeCost = PASSWORD_ARGON2_DEFAULT_TIME_COST,
-        int $threads = PASSWORD_ARGON2_DEFAULT_THREADS
-    )
+    /** @inheritdoc */
+    final public static function generate(string $plainPassword, array $options = [])
     {
-        static::guardPassword($plainPassword);
+        static::guardPlainPassword($plainPassword);
 
         $hash = password_hash($plainPassword, PASSWORD_ARGON2I, [
-            'memory_cost' => $memoryCost,
-            'time_cost' => $timeCost,
-            'threads' => $threads,
+            'memory_cost' => $options['memory_cost'] ?? PASSWORD_ARGON2_DEFAULT_MEMORY_COST,
+            'time_cost' => $options['time_cost'] ?? PASSWORD_ARGON2_DEFAULT_TIME_COST,
+            'threads' => $options['threads'] ?? PASSWORD_ARGON2_DEFAULT_THREADS,
         ]);
 
         return new static($hash);
@@ -62,31 +53,19 @@ abstract class Argon2IPasswordValue extends StringValue
 
 
 
-    /**
-     * @param string $plainPassword
-     * @return bool
-     */
+    /** @inheritdoc */
     final public function verify(string $plainPassword): bool
     {
         return password_verify($plainPassword, $this->toString());
     }
 
-    /**
-     * @param int $memoryCost = PASSWORD_ARGON2_DEFAULT_MEMORY_COST
-     * @param int $timeCost   = PASSWORD_ARGON2_DEFAULT_TIME_COST
-     * @param int $threads    = PASSWORD_ARGON2_DEFAULT_THREADS
-     * @return bool
-     */
-    final public function needsRehash(
-        int $memoryCost = PASSWORD_ARGON2_DEFAULT_MEMORY_COST,
-        int $timeCost = PASSWORD_ARGON2_DEFAULT_TIME_COST,
-        int $threads = PASSWORD_ARGON2_DEFAULT_THREADS
-    ): bool
+    /** @inheritdoc */
+    final public function needsRehash(array $options = []): bool
     {
         return password_needs_rehash($this->toString(), PASSWORD_ARGON2I, [
-            'memory_cost' => $memoryCost,
-            'time_cost' => $timeCost,
-            'threads' => $threads,
+            'memory_cost' => $options['memory_cost'] ?? PASSWORD_ARGON2_DEFAULT_MEMORY_COST,
+            'time_cost' => $options['time_cost'] ?? PASSWORD_ARGON2_DEFAULT_TIME_COST,
+            'threads' => $options['threads'] ?? PASSWORD_ARGON2_DEFAULT_THREADS,
         ]);
     }
 

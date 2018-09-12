@@ -9,37 +9,23 @@ use Species\Common\Value\String\StringValue;
 /**
  * Abstract bcrypt password value object.
  */
-abstract class BcryptPasswordValue extends StringValue
+abstract class BcryptPasswordValue extends StringValue implements PasswordValueObject
 {
 
     /**
+     * Override this method to guard the plain password rules.
+     *
      * @param string $plainPassword
      * @throws InvalidPassword
      */
-    protected static function guardPassword(string $plainPassword): void
+    protected static function guardPlainPassword(string $plainPassword): void
     {
-        //
         if (strlen($plainPassword) < 6) {
             throw new InvalidPassword();
         }
     }
 
 
-
-    /**
-     * @param string $plainPassword
-     * @param int    $cost = PASSWORD_BCRYPT_DEFAULT_COST
-     * @return static
-     */
-    final public static function generate(string $plainPassword, int $cost = PASSWORD_BCRYPT_DEFAULT_COST)
-    {
-        static::guardPassword($plainPassword);
-
-        $hash = self::preHash($plainPassword);
-        $hash = password_hash($hash, PASSWORD_BCRYPT, ['cost' => $cost]);
-
-        return new static($hash);
-    }
 
     /**
      * To fix bcrypt 72 byte password limit.
@@ -55,6 +41,21 @@ abstract class BcryptPasswordValue extends StringValue
 
 
     /** @inheritdoc */
+    final public static function generate(string $plainPassword, array $options = [])
+    {
+        static::guardPlainPassword($plainPassword);
+
+        $hash = self::preHash($plainPassword);
+        $hash = password_hash($hash, PASSWORD_BCRYPT, [
+            'cost' => $options['cost'] ?? PASSWORD_BCRYPT_DEFAULT_COST,
+        ]);
+
+        return new static($hash);
+    }
+
+
+
+    /** @inheritdoc */
     final protected function guardValue(string $value): void
     {
         if (password_get_info($value)['algo'] !== PASSWORD_BCRYPT) {
@@ -64,22 +65,18 @@ abstract class BcryptPasswordValue extends StringValue
 
 
 
-    /**
-     * @param string $plainPassword
-     * @return bool
-     */
+    /** @inheritdoc */
     final public function verify(string $plainPassword): bool
     {
         return password_verify(self::preHash($plainPassword), $this->toString());
     }
 
-    /**
-     * @param int $cost = PASSWORD_BCRYPT_DEFAULT_COST
-     * @return bool
-     */
-    final public function needsRehash(int $cost = PASSWORD_BCRYPT_DEFAULT_COST): bool
+    /** @inheritdoc */
+    final public function needsRehash(array $options = []): bool
     {
-        return password_needs_rehash($this->toString(), PASSWORD_BCRYPT, ['cost' => $cost]);
+        return password_needs_rehash($this->toString(), PASSWORD_BCRYPT, [
+            'cost' => $options['cost'] ?? PASSWORD_BCRYPT_DEFAULT_COST,
+        ]);
     }
 
 }

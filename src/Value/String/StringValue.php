@@ -5,7 +5,7 @@ namespace Species\Common\Value\String;
 /**
  * Abstraction of a string value object.
  */
-abstract class StringValue implements \JsonSerializable
+abstract class StringValue implements StringValueObject
 {
 
     /** @var string */
@@ -13,10 +13,7 @@ abstract class StringValue implements \JsonSerializable
 
 
 
-    /**
-     * @param string $string
-     * @return static
-     */
+    /** @inheritdoc */
     final public static function fromString(string $string)
     {
         return new static($string);
@@ -38,6 +35,8 @@ abstract class StringValue implements \JsonSerializable
 
 
     /**
+     * Override this to sanitize the string value.
+     *
      * @param string $string
      * @return string
      */
@@ -47,6 +46,8 @@ abstract class StringValue implements \JsonSerializable
     }
 
     /**
+     * Override this to guard the string value.
+     *
      * @param string $string
      * @throws \InvalidArgumentException
      */
@@ -56,26 +57,19 @@ abstract class StringValue implements \JsonSerializable
 
 
 
-    /**
-     * @inheritdoc
-     * @return string
-     */
+    /** @inheritdoc */
     final public function jsonSerialize(): string
     {
         return $this->string;
     }
 
-    /**
-     * @return string
-     */
+    /** @inheritdoc */
     final public function __toString(): string
     {
         return $this->string;
     }
 
-    /**
-     * @return string
-     */
+    /** @inheritdoc */
     final public function toString(): string
     {
         return $this->string;
@@ -83,10 +77,7 @@ abstract class StringValue implements \JsonSerializable
 
 
 
-    /**
-     * @param mixed $other
-     * @return bool
-     */
+    /** @inheritdoc */
     final public function isSame($other): bool
     {
         if (!$other instanceof static) {
@@ -96,10 +87,7 @@ abstract class StringValue implements \JsonSerializable
         return $this->string === $other->string;
     }
 
-    /**
-     * @param mixed $other
-     * @return bool
-     */
+    /** @inheritdoc */
     final public function equals($other): bool
     {
         if (!$other instanceof static) {

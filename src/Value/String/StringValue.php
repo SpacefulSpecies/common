@@ -78,7 +78,7 @@ abstract class StringValue implements StringValueObject
 
 
     /** @inheritdoc */
-    final public function isSame($other): bool
+    final public function sameAs($other): bool
     {
         if (!$other instanceof static) {
             return false;

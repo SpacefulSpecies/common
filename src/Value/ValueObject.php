@@ -9,12 +9,16 @@ interface ValueObject extends \JsonSerializable
 {
 
     /**
+     * Strict comparison.
+     *
      * @param mixed $other
      * @return bool
      */
-    public function isSame($other): bool;
+    public function sameAs($other): bool;
 
     /**
+     * Loose comparison.
+     *
      * @param mixed $other
      * @return bool
      */

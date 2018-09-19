@@ -8,12 +8,10 @@ use Species\Common\Value\String\StringValue;
 /**
  * Abstract UUID v1 (time/node) identifier value object.
  */
-abstract class Uuid1Value extends StringValue
+abstract class Uuid1Value extends StringValue implements UuidValueObject
 {
 
-    /**
-     * @return static
-     */
+    /** @inheritdoc */
     final public static function generate()
     {
         return new static(UuidFactory::v1());
@@ -22,11 +20,13 @@ abstract class Uuid1Value extends StringValue
 
 
     /** @inheritdoc */
-    final protected function guardValue(string $string): void
+    final public static function fromString(string $string)
     {
         if (!UuidValidator::isUuid1($string)) {
             throw new InvalidIdentifier();
         }
+
+        return new static($string);
     }
 
 }

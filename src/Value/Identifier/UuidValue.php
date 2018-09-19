@@ -8,15 +8,17 @@ use Species\Common\Value\String\StringValue;
 /**
  * Abstract UUID (any version) identifier value object.
  */
-abstract class UuidValue extends StringValue
+abstract class UuidValue extends StringValue implements UuidValueObject
 {
 
     /** @inheritdoc */
-    final protected function guardValue(string $string): void
+    final public static function fromString(string $string)
     {
         if (UuidValidator::isUuid($string)) {
             throw new InvalidIdentifier();
         }
+
+        return new static($string);
     }
 
 }

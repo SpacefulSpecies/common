@@ -44,11 +44,13 @@ abstract class Argon2IPasswordValue extends StringValue implements PasswordValue
 
 
     /** @inheritdoc */
-    final protected function guardValue(string $value): void
+    final public static function fromString(string $string)
     {
-        if (password_get_info($value)['algo'] !== PASSWORD_ARGON2I) {
+        if (password_get_info($string)['algo'] !== PASSWORD_ARGON2I) {
             throw new InvalidPasswordHash();
         }
+
+        return new static($string);
     }
 
 

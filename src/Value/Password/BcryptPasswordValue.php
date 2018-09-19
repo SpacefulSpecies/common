@@ -56,11 +56,13 @@ abstract class BcryptPasswordValue extends StringValue implements PasswordValueO
 
 
     /** @inheritdoc */
-    final protected function guardValue(string $value): void
+    final public static function fromString(string $string)
     {
-        if (password_get_info($value)['algo'] !== PASSWORD_BCRYPT) {
+        if (password_get_info($string)['algo'] !== PASSWORD_BCRYPT) {
             throw new InvalidPasswordHash();
         }
+
+        return new static($string);
     }
 
 

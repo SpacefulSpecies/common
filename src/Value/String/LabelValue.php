@@ -11,12 +11,12 @@ abstract class LabelValue extends StringValue
 {
 
     /** @inheritdoc */
-    final protected function sanitizeValue(string $string): string
+    public static function fromString(string $string)
     {
-        // replace all extra whitespaces, tabs and newlines with just one space.
         $string = preg_replace('/\s+/S', ' ', $string);
+        $string = trim($string, ' ');
 
-        return trim($string);
+        return new static($string);
     }
 
 }

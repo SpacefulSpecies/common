@@ -14,7 +14,7 @@ abstract class StringValue implements StringValueObject
 
 
     /** @inheritdoc */
-    final public static function fromString(string $string)
+    public static function fromString(string $string)
     {
         return new static($string);
     }
@@ -26,33 +26,7 @@ abstract class StringValue implements StringValueObject
      */
     final protected function __construct(string $string)
     {
-        $string = $this->sanitizeValue($string);
-        $this->guardValue($string);
-
         $this->string = $string;
-    }
-
-
-
-    /**
-     * Override this to sanitize the string value.
-     *
-     * @param string $string
-     * @return string
-     */
-    protected function sanitizeValue(string $string): string
-    {
-        return $string;
-    }
-
-    /**
-     * Override this to guard the string value.
-     *
-     * @param string $string
-     * @throws \InvalidArgumentException
-     */
-    protected function guardValue(string $string): void
-    {
     }
 
 

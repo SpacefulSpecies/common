@@ -11,7 +11,7 @@ interface ValueObject extends \JsonSerializable
     /**
      * Strict comparison.
      *
-     * @param mixed $other
+     * @param static $other
      * @return bool
      */
     public function sameAs($other): bool;

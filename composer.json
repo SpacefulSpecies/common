@@ -9,7 +9,6 @@
             "Species\\Common\\": "src/"
         }
     },
-
     "autoload-dev": {
         "psr-4": {
             "Species\\Common\\": "tests/"
@@ -22,7 +21,6 @@
         "php": "^7.2",
         "ext-json": "^1.6"
     },
-    
     "require-dev": {
         "phpunit/phpunit": "^7.3"
     }

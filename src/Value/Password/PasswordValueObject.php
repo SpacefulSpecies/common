@@ -15,7 +15,7 @@ interface PasswordValueObject extends StringValueObject
      * @param array  $options = []
      * @return static
      */
-    public static function generate(string $plainPassword, array $options = []);
+    public static function hash(string $plainPassword, array $options = []);
 
 
 

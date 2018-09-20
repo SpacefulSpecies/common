@@ -41,7 +41,7 @@ abstract class BcryptPasswordValue extends StringValue implements PasswordValueO
 
 
     /** @inheritdoc */
-    final public static function generate(string $plainPassword, array $options = [])
+    final public static function hash(string $plainPassword, array $options = [])
     {
         static::guardPlainPassword($plainPassword);
 

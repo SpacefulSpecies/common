@@ -1,12 +1,12 @@
 <?php
 
-namespace Species\Common\Value\Identifier;
+namespace Species\Common\Value\Uuid;
 
-use Species\Common\Value\Identifier\Exception\InvalidIdentifier;
+use Species\Common\Value\Uuid\Exception\InvalidUuid;
 use Species\Common\Value\String\StringValue;
 
 /**
- * Abstract UUID v4 (random) identifier value object.
+ * Abstract UUID v4 (random) value object.
  */
 abstract class Uuid4Value extends StringValue implements UuidValueObject
 {
@@ -23,7 +23,7 @@ abstract class Uuid4Value extends StringValue implements UuidValueObject
     final public static function fromString(string $string)
     {
         if (!UuidValidator::isUuid4($string)) {
-            throw new InvalidIdentifier();
+            throw new InvalidUuid();
         }
 
         return new static($string);

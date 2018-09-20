@@ -1,9 +1,9 @@
 <?php
 
-namespace Species\Common\Value\Identifier;
+namespace Species\Common\Value\Uuid;
 
 use Ramsey\Uuid\Uuid;
-use Species\Common\Value\Identifier\Exception\CannotGenerateIdentifier;
+use Species\Common\Value\Uuid\Exception\CannotGenerateUuid;
 
 /**
  * UUID factory.
@@ -41,7 +41,7 @@ final class UuidFactory
         try {
             return Uuid::uuid1($node, $clockSeq)->toString();
         } catch (\Throwable $e) {
-            throw CannotGenerateIdentifier::withReason($e);
+            throw CannotGenerateUuid::withReason($e);
         }
     }
 
@@ -56,7 +56,7 @@ final class UuidFactory
         try {
             return Uuid::uuid3($ns, $name)->toString();
         } catch (\Throwable $e) {
-            throw CannotGenerateIdentifier::withReason($e);
+            throw CannotGenerateUuid::withReason($e);
         }
     }
 
@@ -69,7 +69,7 @@ final class UuidFactory
         try {
             return Uuid::uuid4()->toString();
         } catch (\Throwable $e) {
-            throw CannotGenerateIdentifier::withReason($e);
+            throw CannotGenerateUuid::withReason($e);
         }
     }
 
@@ -84,7 +84,7 @@ final class UuidFactory
         try {
             return Uuid::uuid3($ns, $name)->toString();
         } catch (\Throwable $e) {
-            throw CannotGenerateIdentifier::withReason($e);
+            throw CannotGenerateUuid::withReason($e);
         }
     }
 

@@ -1,6 +1,6 @@
 <?php
 
-namespace Species\Common\Value\Identifier;
+namespace Species\Common\Value\Uuid;
 
 use Species\Common\Value\String\StringValueObject;
 

@@ -33,7 +33,8 @@ final class UuidValidator
      */
     public static function isUuid(string $uuid): bool
     {
-        return $uuid === self::NIL ?: (bool)preg_match(self::PATTERN_ANY, $uuid);
+        return $uuid === self::NIL
+            || preg_match(self::PATTERN_ANY, $uuid) === 1;
     }
 
     /**

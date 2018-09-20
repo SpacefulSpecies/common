@@ -14,7 +14,7 @@ abstract class UuidValue extends StringValue implements UuidValueObject
     /** @inheritdoc */
     final public static function fromString(string $string)
     {
-        if (UuidValidator::isUuid($string)) {
+        if (!UuidValidator::isUuid($string)) {
             throw new InvalidUuid();
         }
 

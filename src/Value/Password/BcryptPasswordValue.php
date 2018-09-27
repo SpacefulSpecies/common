@@ -50,7 +50,7 @@ abstract class BcryptPasswordValue extends StringValue implements PasswordValueO
             'cost' => $options['cost'] ?? PASSWORD_BCRYPT_DEFAULT_COST,
         ]);
 
-        return new static($hash);
+        return parent::fromString($hash);
     }
 
 
@@ -62,7 +62,7 @@ abstract class BcryptPasswordValue extends StringValue implements PasswordValueO
             throw new InvalidPasswordHash();
         }
 
-        return new static($string);
+        return parent::fromString($string);
     }
 
 

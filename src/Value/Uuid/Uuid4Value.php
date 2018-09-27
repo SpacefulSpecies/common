@@ -14,7 +14,7 @@ abstract class Uuid4Value extends StringValue implements UuidValueObject
     /** @inheritdoc */
     final public static function generate()
     {
-        return new static(UuidFactory::v4());
+        return parent::fromString(UuidFactory::v4());
     }
 
 
@@ -26,7 +26,7 @@ abstract class Uuid4Value extends StringValue implements UuidValueObject
             throw new InvalidUuid();
         }
 
-        return new static($string);
+        return parent::fromString($string);
     }
 
 }

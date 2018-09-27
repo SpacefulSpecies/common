@@ -23,8 +23,9 @@ abstract class StringValue implements StringValueObject
 
     /**
      * @param string $string
+     * @see static::fromString()
      */
-    final protected function __construct(string $string)
+    final private function __construct(string $string)
     {
         $this->string = $string;
     }

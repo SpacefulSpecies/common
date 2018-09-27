@@ -16,7 +16,7 @@ abstract class LabelValue extends StringValue
         $string = preg_replace('/\s+/S', ' ', $string);
         $string = trim($string, ' ');
 
-        return new static($string);
+        return parent::fromString($string);
     }
 
 }

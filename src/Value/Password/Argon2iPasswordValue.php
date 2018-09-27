@@ -38,7 +38,7 @@ abstract class Argon2IPasswordValue extends StringValue implements PasswordValue
             'threads' => $options['threads'] ?? PASSWORD_ARGON2_DEFAULT_THREADS,
         ]);
 
-        return new static($hash);
+        return parent::fromString($hash);
     }
 
 
@@ -50,7 +50,7 @@ abstract class Argon2IPasswordValue extends StringValue implements PasswordValue
             throw new InvalidPasswordHash();
         }
 
-        return new static($string);
+        return parent::fromString($string);
     }
 
 

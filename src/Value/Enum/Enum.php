@@ -24,10 +24,10 @@ abstract class Enum extends StringValue implements EnumValueObject
     {
         if (!isset(self::$singletons[static::class])) {
             self::$singletons[static::class] = [];
+            $singletons =& self::$singletons[static::class];
             foreach (static::ENUM as $index => $enum) {
-                $singleton = new static($enum);
-                $singleton->index = $index;
-                self::$singletons[static::class][$enum] = $singleton;
+                $singletons[$enum] = parent::fromString($enum);
+                $singletons[$enum]->index = $index;
             }
         }
 

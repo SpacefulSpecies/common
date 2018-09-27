@@ -18,7 +18,7 @@ abstract class UuidValue extends StringValue implements UuidValueObject
             throw new InvalidUuid();
         }
 
-        return new static($string);
+        return parent::fromString($string);
     }
 
 }

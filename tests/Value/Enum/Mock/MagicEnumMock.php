@@ -2,7 +2,7 @@
 
 namespace Species\Common\Value\Enum\Mock;
 
-use Species\Common\Value\Enum\MagicEnum;
+use Species\Common\Value\Enum\MagicEnumValue;
 
 /**
  * @method static static foo()
@@ -13,7 +13,7 @@ use Species\Common\Value\Enum\MagicEnum;
  * @method bool inBar()
  * @method bool isFooBar()
  */
-final class MagicEnumMock extends MagicEnum
+final class MagicEnumMock extends MagicEnumValue
 {
 
     const ENUM = ['foo', 'bar', 'foo-bar'];

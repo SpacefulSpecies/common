@@ -5,7 +5,7 @@ namespace Species\Common\Value\Password;
 use Species\Common\Value\String\StringValueObject;
 
 /**
- * Password value interface.
+ * Password value object interface.
  */
 interface PasswordValueObject extends StringValueObject
 {

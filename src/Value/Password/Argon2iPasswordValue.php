@@ -13,7 +13,8 @@ abstract class Argon2IPasswordValue extends StringValue implements PasswordValue
 {
 
     /**
-     * Override this method to guard the plain password rules.
+     * Override this method to guard the plain password rules,
+     *   eg: password length or disallow whitespace.
      *
      * @param string $plainPassword
      * @throws InvalidPassword
@@ -21,6 +22,9 @@ abstract class Argon2IPasswordValue extends StringValue implements PasswordValue
     protected static function guardPlainPassword(string $plainPassword): void
     {
         if (strlen($plainPassword) < 6) {
+            throw new InvalidPassword();
+        }
+        if (preg_match('/\s/S', $plainPassword)) {
             throw new InvalidPassword();
         }
     }

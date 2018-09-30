@@ -13,7 +13,8 @@ abstract class BcryptPasswordValue extends StringValue implements PasswordValueO
 {
 
     /**
-     * Override this method to guard the plain password rules.
+     * Override this method to guard the plain password rules,
+     *   eg: password length or disallow whitespace.
      *
      * @param string $plainPassword
      * @throws InvalidPassword
@@ -23,12 +24,15 @@ abstract class BcryptPasswordValue extends StringValue implements PasswordValueO
         if (strlen($plainPassword) < 6) {
             throw new InvalidPassword();
         }
+        if (preg_match('/\s/S', $plainPassword)) {
+            throw new InvalidPassword();
+        }
     }
 
 
 
     /**
-     * To fix bcrypt 72 byte password limit.
+     * To fix bcrypt 72 byte password length cut-off.
      *
      * @param string $plainPassword
      * @return string

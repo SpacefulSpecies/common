@@ -3,7 +3,7 @@
 namespace Species\Common\Value\String;
 
 /**
- * Abstraction of a string value object.
+ * Abstract string value object.
  */
 abstract class StringValue implements StringValueObject
 {

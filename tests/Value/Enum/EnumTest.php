@@ -3,6 +3,7 @@
 namespace Species\Common\Value\Enum;
 
 use PHPUnit\Framework\TestCase;
+use Species\Common\Value\Enum\Exception\InvalidEnumIndex;
 use Species\Common\Value\Enum\Exception\InvalidEnumValue;
 use Species\Common\Value\Enum\Mock\EnumMock;
 
@@ -33,7 +34,7 @@ final class EnumTest extends TestCase
     /** @test */
     public function it_should_validate_index()
     {
-        $this->expectException(InvalidEnumValue::class);
+        $this->expectException(InvalidEnumIndex::class);
         EnumMock::fromIndex(2);
     }
 

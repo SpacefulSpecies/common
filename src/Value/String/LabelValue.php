@@ -3,9 +3,10 @@
 namespace Species\Common\Value\String;
 
 /**
- * Abstraction of a label value object.
+ * Abstract label value object.
  *
- * Only single space whitespace and trimmed.
+ * Replaces all extra whitespace (newlines, tabs, multiple spaces, ...) into a single space
+ * and trims the string.
  */
 abstract class LabelValue extends StringValue
 {

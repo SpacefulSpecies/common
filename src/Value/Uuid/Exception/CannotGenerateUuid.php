@@ -3,7 +3,7 @@
 namespace Species\Common\Value\Uuid\Exception;
 
 /**
- * Exception thrown when an uuid cannot be generated.
+ * Exception thrown when an UUID cannot be generated.
  */
 final class CannotGenerateUuid extends \LogicException
 {

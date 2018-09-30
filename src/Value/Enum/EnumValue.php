@@ -2,13 +2,14 @@
 
 namespace Species\Common\Value\Enum;
 
+use Species\Common\Value\Enum\Exception\InvalidEnumIndex;
 use Species\Common\Value\Enum\Exception\InvalidEnumValue;
 use Species\Common\Value\String\StringValue;
 
 /**
- * Abstraction of an enum.
+ * Abstract enum value object.
  */
-abstract class Enum extends StringValue implements \IteratorAggregate, EnumValueObject
+abstract class EnumValue extends StringValue implements \IteratorAggregate, EnumValueObject
 {
 
     /** @var array */
@@ -52,7 +53,7 @@ abstract class Enum extends StringValue implements \IteratorAggregate, EnumValue
     final public static function fromIndex(int $index)
     {
         if (!isset(static::ENUM[$index])) {
-            throw new InvalidEnumValue();
+            throw new InvalidEnumIndex();
         }
 
         return static::fromString(static::ENUM[$index]);

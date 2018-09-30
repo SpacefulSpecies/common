@@ -5,7 +5,7 @@ namespace Species\Common\Value\Enum;
 use Species\Common\Value\Enum\Exception\InvalidEnumValue;
 
 /**
- * Abstraction of a magic method enum.
+ * Abstract magic method enum value object.
  *
  * It provides static factory methods using magic callStatic(), eg:
  *   Fruit::apple(), Fruit::banana(), Fruit::tomato()
@@ -16,7 +16,7 @@ use Species\Common\Value\Enum\Exception\InvalidEnumValue;
  * Magic call() and callStatic() will search for lookalikes, eg:
  *   "friedPotato", "fried-potato", "FRIED_POTATO", "fried potAto", ...
  */
-abstract class MagicEnum extends Enum
+abstract class MagicEnumValue extends EnumValue
 {
 
     /** @var array */

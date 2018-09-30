@@ -7,7 +7,7 @@ use Species\Common\Value\String\StringValueObject;
 /**
  * Enum value object interface.
  */
-interface EnumValueObject extends StringValueObject
+interface EnumValueObject extends \Countable, \Traversable, StringValueObject
 {
 
     /**

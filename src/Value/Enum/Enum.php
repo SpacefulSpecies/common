@@ -8,7 +8,7 @@ use Species\Common\Value\String\StringValue;
 /**
  * Abstraction of an enum.
  */
-abstract class Enum extends StringValue implements EnumValueObject
+abstract class Enum extends StringValue implements \IteratorAggregate, EnumValueObject
 {
 
     /** @var array */
@@ -64,6 +64,22 @@ abstract class Enum extends StringValue implements EnumValueObject
     final public function getIndex(): int
     {
         return $this->index;
+    }
+
+
+
+    /** @inheritdoc */
+    final public function count(): int
+    {
+        return count(static::ENUM);
+    }
+
+    /**
+     * @return \Generator|static[]
+     */
+    final public function getIterator(): \Generator
+    {
+        return yield from static::getSingletons();
     }
 
 }

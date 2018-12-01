@@ -2,7 +2,7 @@
 
 namespace Species\Common\Value\Password;
 
-use Species\Common\Value\Password\Exception\InvalidPassword;
+use Species\Common\Value\Password\Exception\InvalidPlainPassword;
 use Species\Common\Value\Password\Exception\InvalidPasswordHash;
 use Species\Common\Value\String\StringValue;
 
@@ -17,15 +17,15 @@ abstract class BcryptPasswordValue extends StringValue implements PasswordValueO
      *   eg: password length or disallow whitespace.
      *
      * @param string $plainPassword
-     * @throws InvalidPassword
+     * @throws InvalidPlainPassword
      */
     protected static function guardPlainPassword(string $plainPassword): void
     {
         if (strlen($plainPassword) < 6) {
-            throw new InvalidPassword();
+            throw new InvalidPlainPassword();
         }
         if (preg_match('/\s/S', $plainPassword)) {
-            throw new InvalidPassword();
+            throw new InvalidPlainPassword();
         }
     }
 

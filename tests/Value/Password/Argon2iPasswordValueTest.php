@@ -3,7 +3,7 @@
 namespace Species\Common\Value\Password;
 
 use PHPUnit\Framework\TestCase;
-use Species\Common\Value\Password\Exception\InvalidPassword;
+use Species\Common\Value\Password\Exception\InvalidPlainPassword;
 use Species\Common\Value\Password\Exception\InvalidPasswordHash;
 use Species\Common\Value\Password\Mock\Argon2IMock;
 
@@ -78,7 +78,7 @@ final class Argon2iPasswordValueTest extends TestCase
     /** @test */
     public function it_should_not_allow_passwords_smaller_than_6_by_default()
     {
-        $this->expectException(InvalidPassword::class);
+        $this->expectException(InvalidPlainPassword::class);
         Argon2IMock::hash('123');
     }
 
